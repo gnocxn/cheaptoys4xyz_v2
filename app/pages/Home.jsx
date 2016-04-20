@@ -3,7 +3,7 @@ import Firebase from 'firebase';
 import _ from 'lodash';
 
 const firebaseRef = new Firebase('https://aliexpress.firebaseio.com/sites/cheaptoys4yz/products');
-const watting = require('../photos/waiting.gif');
+const watting = 'https://49.media.tumblr.com/e7efc2afbed488b45c7df9c2dea0d6a3/tumblr_o5xgbsQjnw1vsnhfwo1_250.gif';
 
 export default class Home extends React.Component {
 	constructor(props) {
