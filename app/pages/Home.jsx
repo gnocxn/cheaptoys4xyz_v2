@@ -30,48 +30,6 @@ export default class Home extends React.Component {
 				self.__queryProducts();
 			})
 		})
-		//db('products').remove({});
-		//let productsCount = db('products').chain().filter({}).size().value();
-		/*if(productsCount > 0) {
-			self.__queryProducts();
-			setTimeout(function(){
-				firebaseRef.once('value', function (dataSnapshot) {
-					let data = dataSnapshot.val();
-					let products = _.values(data);
-					_.each(products, (p)=> {
-						let isExists = db('products').chain().some({productId : p.productId}).value();
-						if(isExists){
-							db('products')
-								.chain()
-								.find({productId : p.productId})
-								.assign(p)
-								.value();
-						}else{
-							db('products').push(p);
-						}
-					});
-					self.__queryProducts();
-				});
-			},5000)
-		}else{
-			firebaseRef.once('value', function (dataSnapshot) {
-				let data = dataSnapshot.val();
-				let products = _.values(data);
-				_.each(products, (p)=> {
-					let isExists = db('products').chain().some({productId : p.productId}).value();
-					if(isExists){
-						db('products')
-							.chain()
-							.find({productId : p.productId})
-							.assign(p)
-							.value();
-					}else{
-						db('products').push(p);
-					}
-				});
-				self.__queryProducts();
-			});
-		}*/
 	}
 
 	componentDidMount() {
@@ -131,10 +89,11 @@ export default class Home extends React.Component {
 	__productClick(e) {
 		let p = e.target.parentNode;
 		let productUrl = p.getAttribute('data-url') || p.getAttribute('href');
+		console.log(productUrl);
 		if(ga){
 			ga('send', 'event', 'Products', 'Click', productUrl);
 		}
-		if (mixpanel) {
+		if (mixpanel && productUrl) {
 			mixpanel.track("Click Product", {
 				product: productUrl
 			});
