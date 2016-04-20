@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="" {% if(o.htmlWebpackPlugin.files.manifest) { %} manifest="{%= o.htmlWebpackPlugin.files.manifest %}"{% } %}> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>{%=o.htmlWebpackPlugin.options.title || 'Webpack App'%}</title>
+    <meta name="description" content="Spice up your sex life with a cheap sex toy today."/>
+  {% if (o.htmlWebpackPlugin.files.favicon) { %}
+  <link rel="shortcut icon" href="{%=o.htmlWebpackPlugin.files.favicon%}">
+  {% } %}
+  {% if (o.htmlWebpackPlugin.options.mobile) { %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% } %}
+
+  {% for (var css in o.htmlWebpackPlugin.files.css) { %}
+  <link href="{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet">
+  {% } %}
+    <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("e160228ec38a47fef58d911397ad1c96");</script><!-- end Mixpanel -->
+</head>
+<body>
+{% if (o.htmlWebpackPlugin.options.unsupportedBrowser) { %}
+<style>.unsupported-browser { display: none; }</style>
+<div class="unsupported-browser">
+  Sorry, your browser is not supported.  Please upgrade to
+  the latest version or switch your browser to use this site.
+  See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
+  for options.
+</div>
+{% } %}
+
+{% if (o.htmlWebpackPlugin.options.appMountId) { %}
+<div id="{%=o.htmlWebpackPlugin.options.appMountId%}"></div>
+{% } %}
+
+{% if (o.htmlWebpackPlugin.options.appMountIds && o.htmlWebpackPlugin.options.appMountIds.length > 0) { %}
+{% for (var index in o.htmlWebpackPlugin.options.appMountIds) { %}
+<div id="{%=o.htmlWebpackPlugin.options.appMountIds[index]%}"></div>
+{% } %}
+{% } %}
+
+{% if (o.htmlWebpackPlugin.options.window) { %}
+<script>
+  {% for (var varName in o.htmlWebpackPlugin.options.window) { %}
+    window['{%=varName%}'] = {%#JSON.stringify(o.htmlWebpackPlugin.options.window[varName])%};
+  {% } %}
+</script>
+{% } %}
+
+{% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+<script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+{% } %}
+
+{% if (o.htmlWebpackPlugin.options.devServer) { %}
+<script src="{%=o.htmlWebpackPlugin.options.devServer%}/webpack-dev-server.js"></script>
+{% } %}
+
+{% if (o.htmlWebpackPlugin.options.googleAnalytics) { %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+
+  {% if (o.htmlWebpackPlugin.options.googleAnalytics.trackingId) { %}
+    ga('create', '{%=o.htmlWebpackPlugin.options.googleAnalytics.trackingId%}', 'auto');
+    {% } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); }%}
+
+  {% if (o.htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %}
+    ga('send', 'pageview');
+    {% } %}
+</script>
+{% } %}
+<footer class="footer">
+    <div class="container">
+        <a href="https://mixpanel.com/f/partner" rel="nofollow"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_blue.png" alt="Mobile Analytics" /></a>
+    </div>
+</footer>
+</body>
+</html>
